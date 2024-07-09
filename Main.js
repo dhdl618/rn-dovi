@@ -10,8 +10,21 @@ const Main = ({navigation}) => {
           style={{marginBottom: 20}}>
         <Text>로그인</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+      <TouchableOpacity onPress={() => navigation.navigate('SignUp')}
+        style={{marginBottom: 20}}>
         <Text>회원가입</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('FindId')}
+        style={{marginBottom: 20}}>
+        <Text>아이디 찾기</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('FindPw')}
+        style={{marginBottom: 20}}>
+        <Text>비밀번호 찾기</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('PasswordReset')}
+        style={{marginBottom: 20}}>
+        <Text>비밀번호 재설정</Text>
       </TouchableOpacity>
     </View>
   )

@@ -43,7 +43,7 @@ const SignUp = ({navigation}) => {
   // 전화번호가 숫자를 제외한 문자나 기호가 들어있는지 판별
   const checkPhoneNum = /[^0-9]/.test(phoneNum);
   const correctPhoneNum =
-    phoneNum.length >= 10 && phoneNum.length < 12 && !checkPhoneNum;
+  phoneNum.length >= 10 && phoneNum.length < 12 && !checkPhoneNum;
 
   // 유/무 버튼 클릭 시 clicked에 yes / no 값 전달
   const [clicked, setClicked] = useState(null);
