@@ -26,6 +26,18 @@ const Main = ({navigation}) => {
         style={{marginBottom: 20}}>
         <Text>비밀번호 재설정</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('CurrentPosition')}
+        style={{marginBottom: 20}}>
+        <Text>현재위치 조회</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Map')}
+        style={{marginBottom: 20}}>
+        <Text>티맵 조회</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Webview')}
+        style={{marginBottom: 20}}>
+        <Text>웹 뷰</Text>
+      </TouchableOpacity>
     </View>
   )
 }

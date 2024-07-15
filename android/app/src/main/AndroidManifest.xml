@@ -2,6 +2,13 @@
   package="com.myproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    
+    <queries>
+        <package android:name="com.skt.skaf.l001mtm091" />
+        <package android:name="com.skt.tmap.ku" />
+    </queries>
 
     <application
       android:name=".MainApplication"
@@ -22,5 +29,8 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
+      <meta-data
+            android:name="com.skt.tmap"
+            android:value="pboZppgQ8U4d6HG9FcdfX5KABc9DMuC5bDO7Ot98" />
     </application>
 </manifest>

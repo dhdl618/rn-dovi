@@ -8,7 +8,7 @@ import {
     TextInput,
     ScrollView,
     Keyboard,
-    Modal
+    Modal,
   } from 'react-native';
   import React from 'react';
   import {useState} from 'react';

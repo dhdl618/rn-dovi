@@ -11,6 +11,9 @@ import Loading from './Loading';
 import FindId from './FindId'
 import FindPw from './FindPw';
 import PasswordReset from './PasswordReset';
+import Map from './Map';
+import CurrentPosition from './CurrentPosition';
+import Webview from './Webview';
 
 const Stack = createNativeStackNavigator()
 
@@ -36,6 +39,9 @@ export default function App() {
         <Stack.Screen name="FindId" component={FindId} />
         <Stack.Screen name="FindPw" component={FindPw} />
         <Stack.Screen name="PasswordReset" component={PasswordReset} />
+        <Stack.Screen name="CurrentPosition" component={CurrentPosition} />
+        <Stack.Screen name="Map" component={Map} />
+        <Stack.Screen name="Webview" component={Webview} />
       </Stack.Navigator>
     </NavigationContainer>
   );
