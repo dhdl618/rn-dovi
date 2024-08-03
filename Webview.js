@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
-import {View, Text, SafeAreaView, Dimensions, StyleSheet, TouchableOpacity, Alert} from 'react-native'
+import {ScrollView, SafeAreaView, Dimensions, StyleSheet, Alert} from 'react-native'
 import WebView from 'react-native-webview'
-import Geolocation, { getCurrentPosition } from 'react-native-geolocation-service'
+import Geolocation from 'react-native-geolocation-service'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
@@ -18,18 +18,19 @@ const Webview = () => {
       const watchId = Geolocation.getCurrentPosition(
         position => {
           const { latitude, longitude } = position.coords;
-          const lat_time = latitude+time
-          setCurrentLocation({ lat_time, longitude });
+          // const lat_time = latitude+time
+          setCurrentLocation({ latitude, longitude });
 
           const sendCurrentLocation = JSON.stringify({
             // lat: currentLocation?.latitude,
             // lng: currentLocation?.longitude
-            lat: currentLocation?.lat_time,
-            lng: 127.0846731
+            
+            lat: 37.0116265,  // 테스트용 위치 (한경대학교 기준)
+            lng: 127.2642483
           })
           webviewRef.current.postMessage(sendCurrentLocation)
         
-          console.log("내 좌표", lat_time, longitude);
+          console.log("내 좌표", latitude, longitude);
         },
         error => {
           console.log(error.code, error.message);
@@ -42,8 +43,8 @@ const Webview = () => {
 
       const interval = setInterval(() => {
         setTime(time + 0.0001)
-        console.log("시간",time)
-      }, 1000)
+        // console.log("시간",time)
+      }, 3000)
   
       return () => {
         Geolocation.clearWatch(watchId);
@@ -58,17 +59,16 @@ const Webview = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <WebView
-        ref={webviewRef}
-        style={styles.webview}
-        // 로컬 호스트에서 react 파일을 띄어 실행
-        // source={{uri: 'http://192.168.1.101:3000'}}
-
-        // netlify로 배포한 사이트에서 실행
-        source={{uri: 'https://react-tmap.netlify.app/'}}
-        onMessage={handleOnMessage}></WebView>
+        <WebView
+          ref={webviewRef}
+          style={styles.webview}
+          // 로컬 호스트에서 react 파일을 띄어 실행
+          source={{uri: 'http://192.168.1.101:3000'}}
+          // netlify로 배포한 사이트에서 실행
+          // source={{uri: 'https://react-tmap.netlify.app/'}}
+          onMessage={handleOnMessage}></WebView>
     </SafeAreaView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -81,6 +81,9 @@ const styles = StyleSheet.create({
     flex: 1,
     width: windowWidth,
     height: windowHeight,
+  },
+  scrollContainer: {
+    flexGrow: 1,
   },
 })
 

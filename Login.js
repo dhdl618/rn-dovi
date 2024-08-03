@@ -39,7 +39,7 @@ const Login = ({navigation}) => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
+      <View style={styles.container}>ScrollView
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.header}>
             <TouchableOpacity
