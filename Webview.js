@@ -22,11 +22,11 @@ const Webview = () => {
           setCurrentLocation({ latitude, longitude });
 
           const sendCurrentLocation = JSON.stringify({
-            // lat: currentLocation?.latitude,
-            // lng: currentLocation?.longitude
+            lat: currentLocation?.latitude,
+            lng: currentLocation?.longitude
             
-            lat: 37.0116265,  // 테스트용 위치 (한경대학교 기준)
-            lng: 127.2642483
+            // lat: 37.0116265,  // 테스트용 위치 (한경대학교 기준)
+            // lng: 127.2642483
           })
           webviewRef.current.postMessage(sendCurrentLocation)
         
@@ -42,7 +42,7 @@ const Webview = () => {
       );
 
       const interval = setInterval(() => {
-        setTime(time + 0.0001)
+        setTime(time + 0.00001)
         // console.log("시간",time)
       }, 3000)
   
@@ -63,9 +63,9 @@ const Webview = () => {
           ref={webviewRef}
           style={styles.webview}
           // 로컬 호스트에서 react 파일을 띄어 실행
-          source={{uri: 'http://192.168.1.101:3000'}}
+          // source={{uri: 'http://192.168.1.101:3000'}}
           // netlify로 배포한 사이트에서 실행
-          // source={{uri: 'https://react-tmap.netlify.app/'}}
+          source={{uri: 'https://react-tmap.netlify.app/'}}
           onMessage={handleOnMessage}></WebView>
     </SafeAreaView>
   );
