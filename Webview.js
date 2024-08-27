@@ -1,10 +1,29 @@
 import React, { useRef, useState, useEffect } from 'react'
-import {ScrollView, SafeAreaView, Dimensions, StyleSheet, Alert} from 'react-native'
+import {ScrollView, SafeAreaView, Dimensions, StyleSheet, Alert, PermissionsAndroid, Platform} from 'react-native'
 import WebView from 'react-native-webview'
 import Geolocation from 'react-native-geolocation-service'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
+
+const requestLocationPermission = async () => {
+  if (Platform.OS === 'android') {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: "Location Access Required",
+          message: "This App needs to Access your location"
+        }
+      );
+      if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+        console.log("Location permission denied");
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  }
+};
 
 const Webview = () => {
 
@@ -15,15 +34,16 @@ const Webview = () => {
 
   // 위치 불러오기
     useEffect(() => {
-      const watchId = Geolocation.getCurrentPosition(
+      requestLocationPermission();
+      const watchId = Geolocation.watchPosition(
         position => {
           const { latitude, longitude } = position.coords;
           // const lat_time = latitude+time
           setCurrentLocation({ latitude, longitude });
 
           const sendCurrentLocation = JSON.stringify({
-            lat: currentLocation?.latitude,
-            lng: currentLocation?.longitude
+            lat: latitude,
+            lng: longitude
             
             // lat: 37.0116265,  // 테스트용 위치 (한경대학교 기준)
             // lng: 127.2642483
