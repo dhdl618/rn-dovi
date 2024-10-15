@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import {ScrollView, SafeAreaView, Dimensions, StyleSheet, Alert, PermissionsAndroid, Platform} from 'react-native'
 import WebView from 'react-native-webview'
 import Geolocation from 'react-native-geolocation-service'
+import Loading from './Loading'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
@@ -29,6 +30,7 @@ const Webview = () => {
 
   const [currentLocation, setCurrentLocation] = useState(null)
   const [time, setTime] = useState(0)
+  const [isLoading, setIsLoading] = useState(true)
 
   const webviewRef = useRef(null)
 
@@ -38,17 +40,24 @@ const Webview = () => {
       const watchId = Geolocation.watchPosition(
         position => {
           const { latitude, longitude } = position.coords;
-          // const lat_time = latitude+time
+          // const lat_time = latitude-time
+          // const lng_time = longitude+time
           setCurrentLocation({ latitude, longitude });
 
           const sendCurrentLocation = JSON.stringify({
             lat: latitude,
             lng: longitude
             
+            // 위도는 + 위쪽 - 아래쪽
+            // 경도는 + 오른쪽 - 왼쪽
+
             // lat: 37.0116265,  // 테스트용 위치 (한경대학교 기준)
-            // lng: 127.2642483
+            // lng: 127.2642483 + (time)
+
+            // lat: 37.010469 - (time * 0.7777),  
+            // lng: 127.262119 + time
           })
-          webviewRef.current.postMessage(sendCurrentLocation)
+          webviewRef.current?.postMessage(sendCurrentLocation)
         
           console.log("내 좌표", latitude, longitude);
         },
@@ -61,10 +70,16 @@ const Webview = () => {
         },
       );
 
+      if(currentLocation) {
+        setIsLoading(false)
+      }
+
       const interval = setInterval(() => {
-        setTime(time + 0.00001)
+        setTime(time + 0.0001)
         // console.log("시간",time)
       }, 3000)
+
+      
   
       return () => {
         Geolocation.clearWatch(watchId);
@@ -76,6 +91,10 @@ const Webview = () => {
     console.log("location message", e.nativeEvent.data)
     Alert.alert(e.nativeEvent.data)
     }
+    
+    if(isLoading) {
+      return (<Loading />) 
+    }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -83,7 +102,7 @@ const Webview = () => {
           ref={webviewRef}
           style={styles.webview}
           // 로컬 호스트에서 react 파일을 띄어 실행
-          // source={{uri: 'http://192.168.1.101:3000'}}
+          // source={{uri: 'http://10.0.2.2:3000'}}
           // netlify로 배포한 사이트에서 실행
           source={{uri: 'https://react-tmap.netlify.app/'}}
           onMessage={handleOnMessage}></WebView>
