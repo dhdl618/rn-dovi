@@ -6,8 +6,6 @@ import FastImage from 'react-native-fast-image'
 
 const Loading = () => {
 
-    const videoRef = useRef(null)
-
   return (
     <View style={styles.container}>
         {/* <Text style={{fontSize: 25}}>로딩중이야!!</Text> */}

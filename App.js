@@ -18,17 +18,6 @@ import Webview from './Webview';
 const Stack = createNativeStackNavigator()
 
 export default function App() {
-  // const [isLoading, setIsLoading] = useState(true);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, 2500);
-  // }, []);
-  
-  // if(isLoading) {
-  //   return (<Loading />) 
-  // }
 
   return (
     <NavigationContainer>
